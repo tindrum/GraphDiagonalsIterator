@@ -9,18 +9,22 @@ Second technical challenge is that an iterator is a separate object, so I need t
 Third technical challenge is the biggest.
 The class, as currently implemented, is conceptually a rectangular "grid" of the same kind of object (simple integers for now).
 Internally to the class, it's stored as a vector of vector<template TypeT>'s, like this:
+
     grid[0] = [ 3, 4, 6, 3]
     grid[1] = [ 2, 5, 2, 1]
     grid[2] = [ 8, 7, 1, 0]
     grid[3] = [ 3, 7, 2, 7]
+    
 Iterating through the first four (the first "height" elements) is easy: just return the vector of objects at grid[count].
 Iterating through the next four (the next "rows" elements) is kinda easy: build a vector from element (count - height) element of each vector in grid[].
 Next, though, we need the diagonals, which are NOT the same length. 
 The simpler approach, if a null object of type TypeT (or an integer zero, which will work ok for the first project to use this class), is to add N to 0 extra elements to the end of grid[0] (N is 'height' items - 1), and add 0 to (N - 1) elements to the front:
+
     gridDiagonalRight[0] = [ 3, 4, 6, 3, 0, 0, 0]
     gridDiagonlaRight[1] = [ 0, 2, 5, 2, 1, 0, 0]
     gridDiagonalRight[2] = [ 0, 0, 8, 7, 1, 0, 0]
     gridDiagonalRight[3] = [ 0, 0, 0, 3, 7, 2, 7]
+    
 From this new grid-like thing, we get the vertical rows, and it is essentially the diagonals.
 
 Then we need to do a gridDiagonalLeft in a similar way, and take the verticals.
